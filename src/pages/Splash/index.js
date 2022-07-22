@@ -9,7 +9,7 @@ const Splash = () => {
     const interval = 3000
     setTimeout(() => {
     // setelah interval code di jalankan
-    navigate('/sign-in')
+    navigate('/home')
     }, interval);
   }, [])
   
