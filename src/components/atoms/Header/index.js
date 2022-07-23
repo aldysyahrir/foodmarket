@@ -3,7 +3,7 @@ import { ICArrowLeft } from '../../../assets';
 
 const Header = ({ withArrowLeft, tittle, desc, onClick, withAvatar }) => {
   return (
-    <div className='p-6 pt-9 flex flex-row items-center'>
+    <div className='p-6 pt-9 flex flex-row items-center bg-white'>
       {withArrowLeft && (
         <div onClick={onClick} className='mr-6 hover:cursor-pointer'>
           <ICArrowLeft />

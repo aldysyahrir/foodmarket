@@ -11,7 +11,7 @@ const FoodCard = ({image, tittle, star}) => {
         <Gap height={6}/>
         <div className='flex flex-row items-center'>
           {[1,2,3,4,5].map((item) => (
-            <ICStar fill={item <= star ? "#ffc700" : "#cacaca"}/>
+            <ICStar key={item} fill={item <= star ? "#ffc700" : "#cacaca"}/>
           ))}
 
             <p className='text-xs font-normal text-gray-400 ml-1'>{star}.0</p>

@@ -20,3 +20,12 @@ body {
   background-color: #fff;
   display: flex;
 }
+.list-container {
+  @apply flex-1 overflow-x-auto;
+}
+.home {
+  max-height: calc(100vh - 460px);
+}
+.order {
+  max-height: calc(100vh - 236px);
+}
