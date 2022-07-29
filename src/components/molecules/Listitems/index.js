@@ -1,9 +1,13 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
 import { ICStar } from '../../../assets';
 
 const Listitems = ({ image, tittle, price, star, page, items }) => {
+  const navigate = useNavigate();
   return (
-    <div className='flex flex-row my-2 mx-6 items-center'>
+    <div
+      onClick={() => navigate("/food-detail")}
+      className='flex flex-row my-2 mx-6 items-center cursor-pointer'>
       <img src={image} width={60} height={60} />
       <div className='flex-1 ml-3'>
         <p className='text-base font-normal text-black'>{tittle}</p>

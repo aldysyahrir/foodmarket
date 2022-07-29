@@ -1,10 +1,14 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import { ICStar, ILFood1 } from '../../../assets'
 import { Gap } from '../../atoms'
 
 const FoodCard = ({image, tittle, star}) => {
+  const navigate = useNavigate();
   return (
-    <div className='w-48 min-w-max h-52 bg-white rounded-lg mx-3 flex flex-col flex-1'>
+    <div
+    onClick={() => navigate('/food-detail')}
+    className='w-48 min-w-max h-52 bg-white rounded-lg mx-3 flex flex-col flex-1 cursor-pointer'>
         <img src={image} width={192} height={140}/>
         <div className='m-3'>
         <p className='text-base font-normal'>{tittle}</p>
