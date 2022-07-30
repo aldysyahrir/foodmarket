@@ -4,7 +4,7 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
-import { FoodDetail, Home, NotFound, Order, Profile, SignIn, SignUp, SignUpAddress, Splash } from "./pages";
+import { FoodDetail, Home, NotFound, Order, OrderInProgress, PaymentAddress, Profile, SignIn, SignUp, SignUpAddress, Splash, SuccessOrder, SuccessSignUp } from "./pages";
 
 function App() {
   return (
@@ -18,6 +18,10 @@ function App() {
       <Route path="/order" element={<Order/>} />
       <Route path="/profile" element={<Profile/>} />
       <Route path="/food-detail" element={<FoodDetail/>} />
+      <Route path="/payment-address" element={<PaymentAddress/>} />
+      <Route path="/success-sign-up" element={<SuccessSignUp/>} />
+      <Route path="/succes-order" element={<SuccessOrder/>} />
+      <Route path="/order-in-progress" element={<OrderInProgress/>} />
       <Route path="*" element={<NotFound/>} />
     </Routes>
   </BrowserRouter>

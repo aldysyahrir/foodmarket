@@ -54,7 +54,7 @@ const FoodDetail = () => {
             <p className='text-sm font-normal text-gray-500'>Total Price</p>
             <p className='text-lg font-normal'>IDR {Price * counter}</p>
           </div>
-          <Link to="/" className='py-3 px-11 bg-yellow-500 rounded-lg'>Order Now</Link>
+          <Link to="/payment-address" className='py-3 px-11 bg-yellow-500 rounded-lg'>Order Now</Link>
         </div>
 
       </div>

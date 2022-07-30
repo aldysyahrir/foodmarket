@@ -15,7 +15,7 @@ const SignUpAddressForm = () => {
         <Gap height={16}/>
         <Input label='City' placeholder='Type your city'/>
         <Gap height={24}/>
-        <Button label='Sign Up Now' onClick={() => navigate('/')}/>
+        <Button label='Sign Up Now' onClick={() => navigate('/success-sign-up')}/>
     </div>
 
   )
