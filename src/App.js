@@ -13,7 +13,7 @@ function App() {
     { type: "guess", path: "/", element: Splash },
     { type: "guess", path: "/sign-in", element: SignIn },
     { type: "guess", path: "/sign-up", element: SignUp },
-    { type: "guess", path: "/sign=Up-address", element: SignUpAddress },
+    { type: "guess", path: "/sign-up-address", element: SignUpAddress },
     { type: "guess", path: "/home", element: Home },
     { path: "/order", element: Order },
     { path: "/profile", element: Profile },

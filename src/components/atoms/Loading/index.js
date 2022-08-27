@@ -1,7 +1,10 @@
 import React from 'react'
+import { useSelector, shallowEqual, } from 'react-redux';
+import { isLoadingSelector } from '../../../redux';
 
 const Loading = ({ loading }) => {
-    if (loading) {
+    const userLoading = useSelector(isLoadingSelector, shallowEqual);
+    if (loading || userLoading) {
         return (
             <div className='absolute
             flex flex-1 

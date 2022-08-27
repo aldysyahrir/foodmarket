@@ -3,7 +3,11 @@ import { userType } from "../actionType";
 
 const initialState = {
     isLoading: false,
-    user: "aldy"
+    registerData: {
+        name: "",
+        email: "",
+        password: ""
+    },
 }
 
 const user = (state = initialState, action) => {
@@ -13,10 +17,10 @@ const user = (state = initialState, action) => {
             isLoading: action.payload,
         }
     }
-    if (action.type === userType.USER) {
+    if (action.type === userType.REGISTER_DATA) {
         return {
             ...state,
-            user: action.payload,
+            registerData: action.payload,
         }
     }
     return state

@@ -8,9 +8,10 @@ import thunk from "redux-thunk";
  * REDUCER
 */
 
+import global from "./global/reducer";
 import user from "./users/reducer";
 
-const reducers = combineReducers({ user });
+const reducers = combineReducers({ user, global });
 
 /**
  * REDUX PERSIST
@@ -19,7 +20,7 @@ const reducers = combineReducers({ user });
 const persistConfig = {
     key: "authType",
     storage,
-    whiteList: ["user"]
+    whitelist: ["user"]
 }
 
 const persistWithReducer = persistReducer(persistConfig, reducers)
@@ -35,3 +36,18 @@ const store =
 const persistor = persistStore(store);
 
 export { persistor, store };
+
+export * from "./actionType";
+
+/**
+ * ACTION
+ */
+export * from "./global/action";
+export * from "./users/action";
+
+/**
+ * SELECTORS
+ */
+
+export * from "./global/selectors";
+export * from "./users/selectors";
