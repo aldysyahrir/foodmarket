@@ -11,7 +11,7 @@ const SignInForm = () => {
         <Gap height={16}/>
         <Input label='Password' type='password' placeholder='Type your password'/>
         <Gap height={24}/>
-        <Button label='sign in' onClick={() => navigate('/')}/>
+        <Button label='sign in' onClick={() => navigate('/home')}/>
         <Gap height={12}/>
         <Button labelColor='white' background='bg-gray-700' label='Google'/>
         <Gap height={12}/>

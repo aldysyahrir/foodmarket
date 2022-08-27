@@ -9,7 +9,7 @@ body {
   background-color: white;
 }
 
-#root {
+#wrapper {
   width: 100%;
   max-width: 480px;
   margin-left: auto;
@@ -19,6 +19,7 @@ body {
   min-height: 100vh;
   background-color: #fff;
   display: flex;
+  position: relative;
 }
 .list-container {
   @apply flex-1 overflow-x-auto;
@@ -28,4 +29,48 @@ body {
 }
 .order {
   max-height: calc(100vh - 236px);
+}
+
+#children {
+  animation: scaling 2.5s ease-in-out infinite;
+}
+
+@keyframes scaling {
+  0%,
+  100% {
+    transform: scale(0.2);
+    @apply bg-yellow-500
+  }
+  40% {
+    transform: scale(1);
+    @apply bg-yellow-600
+  }
+  50% {
+    transform: scale(1);
+    @apply bg-yellow-500
+  }
+}
+
+#children:nth-child(0){
+  animation-delay: 0s;
+}
+
+#children:nth-child(1){
+  animation-delay: 0.2s;
+}
+
+#children:nth-child(2){
+  animation-delay: 0.4s;
+}
+
+#children:nth-child(3){
+  animation-delay: 0.6s;
+}
+
+#children:nth-child(4){
+  animation-delay: 0.8s;
+}
+
+#children:nth-child(5){
+  animation-delay: 1s;
 }
