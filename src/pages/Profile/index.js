@@ -1,24 +1,29 @@
 import React, { useState } from 'react'
+import { shallowEqual, useSelector } from 'react-redux'
 import { ILAvatar } from '../../assets'
 import { BottomNav, Gap, ListMenu, Tabitems } from '../../components'
+import { userDataSelector } from '../../redux'
 
 const Profile = () => {
+  const user = useSelector(userDataSelector, shallowEqual)
   const [activeItems, setActiveItems] = useState(0)
   const [items, setitems] = useState([
     { key: 0, tittle: "Account" },
     { key: 1, tittle: "FoodMarket" },
   ])
+
+  const userAvatar = user?.avatar !== "default" ? `http://${user?.avatar}` : ILAvatar;
   return (
     <div className='w-full flex flex-col'>
       <div className='flex-1 bg-gray-100'>
         <div className='h-60 bg-white'>
           <div className='w-full flex justify-center items-center flex-col'>
             <div className='w-28 h-28 border border-dashed rounded-full flex justify-center items-center mt-6'>
-              <img src={ILAvatar}
-                className="w-24 h-24 rounded-full" />
+              <img src={userAvatar}
+                className="w-24 h-24 rounded-full object-cover object-center" />
             </div>
-            <p className='text-lg font-medium'>Aldy Syahrir</p>
-            <p className='text-sm font-light text-gray-500'>aldhyrombe@gmail.com</p>
+            <p className='text-lg font-medium'>{user?.name}</p>
+            <p className='text-sm font-light text-gray-500'>{user?.email}</p>
           </div>
         </div>
         <Gap height={24} />

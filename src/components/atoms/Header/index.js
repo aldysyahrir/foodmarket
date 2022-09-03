@@ -1,7 +1,15 @@
 import React from 'react'
-import { ICArrowLeft } from '../../../assets';
+import { shallowEqual, useSelector } from 'react-redux';
+import { ICArrowLeft, ILAvatar } from '../../../assets';
+import { user } from '../../../configs/constans';
+import { userDataSelector } from '../../../redux';
 
 const Header = ({ withArrowLeft, tittle, desc, onClick, withAvatar }) => {
+
+  const userData = useSelector(userDataSelector, shallowEqual);
+
+  const userImage = userData.avatar === "default" ? ILAvatar : `http://${userData.avatar}`;
+
   return (
     <div className='p-6 pt-9 flex flex-row items-center bg-white'>
       {withArrowLeft && (
@@ -16,7 +24,7 @@ const Header = ({ withArrowLeft, tittle, desc, onClick, withAvatar }) => {
         </div>
         {withAvatar && (
           <div>
-            <img src={withAvatar} width={50} height={50}/>
+            <img src={userImage} className="h-12 w-12 object-cover object-center rounded-lg" />
           </div>
         )}
       </div>

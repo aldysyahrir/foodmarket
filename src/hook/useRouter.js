@@ -8,7 +8,10 @@ const useRouter = (routes) => {
         return <Route
             key={route.path}
             path={route.path}
-            element={<Wrapper><route.element /></Wrapper>} />
+            element={
+                <Wrapper path={route.path}>
+                    <route.element />
+                </Wrapper>} />
     });
 };
 

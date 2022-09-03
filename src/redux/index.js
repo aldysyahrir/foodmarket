@@ -10,8 +10,9 @@ import thunk from "redux-thunk";
 
 import global from "./global/reducer";
 import user from "./users/reducer";
+import foods from "./foods/reducer";
 
-const reducers = combineReducers({ user, global });
+const reducers = combineReducers({ user, global, foods });
 
 /**
  * REDUX PERSIST
@@ -44,6 +45,7 @@ export * from "./actionType";
  */
 export * from "./global/action";
 export * from "./users/action";
+export * from "./foods/action";
 
 /**
  * SELECTORS
@@ -51,3 +53,4 @@ export * from "./users/action";
 
 export * from "./global/selectors";
 export * from "./users/selectors";
+export * from "./foods/selector";

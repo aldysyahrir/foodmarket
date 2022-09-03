@@ -7,5 +7,6 @@ import Loading from "./Loading";
 import Guess from "./Guess";
 import Member from "./Member";
 import Allert from "./Allert";
+import Avatar from "./Avatar";
 
-export { Header, Gap, Input, Button, ListMenu, Loading, Guess, Member, Allert };
+export { Header, Gap, Input, Button, ListMenu, Loading, Guess, Member, Allert, Avatar };

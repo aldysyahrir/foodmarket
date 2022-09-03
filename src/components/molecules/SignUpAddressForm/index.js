@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Navigate, useNavigate } from 'react-router-dom'
 import { Button, Gap, Input } from '../../atoms'
 import { useSelector, shallowEqual, useDispatch } from "react-redux"
-import { globalAllertAction, registerDataSelector, userIsloadingAction } from "../../../redux"
+import { clearPasswordAction, globalAllertAction, isLoginAction, refreshTokenDataAction, registerDataSelector, tokenDataAction, userIsloadingAction } from "../../../redux"
 import { user } from "../../../configs/constans"
 import { setAuthorizationHeaders } from '../../../configs/axios'
 
@@ -32,11 +32,15 @@ const SignUpAddressForm = () => {
       .then(res => {
         setAuthorizationHeaders(res.data.token);
         dispatch(userIsloadingAction(false))
+        dispatch(tokenDataAction(res.data.token));
+        dispatch(refreshTokenDataAction(res.data.refresh_token));
+        dispatch(isLoginAction(true));
+        dispatch(clearPasswordAction());
         navigate('/success-sign-up')
       })
       .catch((err) => {
         const { message } = err.response.data;
-        if(message === "email already exist") {
+        if (message === "email already exist") {
           navigate("/sign-up")
         }
         dispatch(globalAllertAction({ show: true, message }));

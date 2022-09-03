@@ -1,31 +1,50 @@
 import { type } from '@testing-library/user-event/dist/type'
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { Link, useParams } from 'react-router-dom'
 import { ICStar, ILFood2 } from "../../assets"
 import { Gap } from "../../components"
+import { foods } from '../../configs/constans'
+import { globalAllertAction } from '../../redux'
 
 const FoodDetail = () => {
+
+  const { id } = useParams()
+  const dispatch = useDispatch()
   const [counter, setCounter] = useState(1)
-  const [Price, setPrice] = useState(2000000)
+
+  const [data, setData] = useState(null)
 
   const updateCounter = (type) => {
     if (type === "plus") setCounter(counter + 1)
     if (type === "minus" && counter > 0) setCounter(counter - 1)
   };
 
+  useEffect(() => {
+    foods.getFood(id).then(res => {
+      setData(res.data)
+    })
+      .catch((err) => {
+        const { message } = err.response?.data;
+        dispatch(globalAllertAction({ show: true, message }));
+      })
+  }, [])
+
+  const foodImage = `http://${data?.picture}`
+
   return (
     <div className='relative'>
-      <img src={ILFood2} style={{ width: 480 }} />
+      <img src={foodImage} style={{ width: 480 }} />
       <div className='absolute top-80 bottom-0 w-full -mt-5 rounded-t-2xl bg-white z-10 flex flex-col flex-1'>
         <div className='flex flex-row items-center justify-between'>
           <div className='m-3'>
-            <p className='text-base font-normal'>Sanggara</p>
+            <p className='text-base font-normal'>{data?.title}</p>
             <Gap heiht={6} />
             <div className='flex flex-row items-center'>
               {[1, 2, 3, 4, 5].map((item) => (
-                <ICStar key={item} fill={item <= 3 ? "#ffc700" : "#cacaca"} />
+                <ICStar key={item} fill={item <= data?.star ? "#ffc700" : "#cacaca"} />
               ))}
-              <p className='text-xs font-normal text-gray-400 ml-1'>{3}</p>
+              <p className='text-xs font-normal text-gray-400 ml-1'>{data?.star}.0</p>
             </div>
           </div>
 
@@ -40,19 +59,16 @@ const FoodDetail = () => {
         </div>
         <div className='ml-4 flex flex-1 flex-col'>
           <p className='mb-2 mt-3 mr-5 text-sm font-normal text-gray-500'>
-            Makanan khas Bugis yang terbuat dari pisang dan cukup sering
-            dipesan oleh anak muda dengan pola makan
-            yang cukup tinggi dengan mengutamakan
-            diet yang sehat dan teratur.
+                {data?.description}
           </p>
           <p className='my-2 text-sm font-normal'>Ingredients</p>
-          <p className='text-sm font-normal text-gray-500'>Pisang, Terigu, Telur, Garam, Minyak </p>
+          <p className='text-sm font-normal text-gray-500'>{data?.ingredients} </p>
         </div>
 
         <div className='mx-4 mb-7 flex flex-row justify-between items-center'>
           <div>
             <p className='text-sm font-normal text-gray-500'>Total Price</p>
-            <p className='text-lg font-normal'>IDR {Price * counter}</p>
+            <p className='text-lg font-normal'>IDR { data?.price* counter}</p>
           </div>
           <Link to="/payment-address" className='py-3 px-11 bg-yellow-500 rounded-lg'>Order Now</Link>
         </div>

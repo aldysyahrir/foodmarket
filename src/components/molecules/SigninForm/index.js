@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { Gap, Input, Button } from '../../atoms';
 import { useDispatch } from "react-redux"
-import { globalAllertAction, userIsloadingAction } from '../../../redux';
+import { globalAllertAction, isLoginAction, refreshTokenDataAction, tokenDataAction, userIsloadingAction } from '../../../redux';
 import { user } from '../../../configs/constans/user';
 import { setAuthorizationHeaders } from '../../../configs/axios';
 
@@ -21,12 +21,15 @@ const SignInForm = () => {
       .then((res) => {
         setAuthorizationHeaders(res.data.token);
         dispatch(userIsloadingAction(false));
+        dispatch(tokenDataAction(res.data.token));
+        dispatch(refreshTokenDataAction(res.data.refresh_token));
+        dispatch(isLoginAction(true));
         navigate('/home')
 
       })
       .catch((err) => {
-        const {message} =err.response.data;
-        dispatch(globalAllertAction({show: true, message }));
+        const { message } = err.response.data;
+        dispatch(globalAllertAction({ show: true, message }));
         dispatch(userIsloadingAction(false));
       })
   };

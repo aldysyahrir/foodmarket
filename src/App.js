@@ -10,14 +10,14 @@ import { FoodDetail, Home, NotFound, Order, OrderInProgress, PaymentAddress, Pro
 function App() {
 
   const routes = [
-    { type: "guess", path: "/", element: Splash },
     { type: "guess", path: "/sign-in", element: SignIn },
     { type: "guess", path: "/sign-up", element: SignUp },
     { type: "guess", path: "/sign-up-address", element: SignUpAddress },
     { type: "guess", path: "/home", element: Home },
+    
     { path: "/order", element: Order },
     { path: "/profile", element: Profile },
-    { path: "/food-detail", element: FoodDetail },
+    { path: "/food-detail/:id", element: FoodDetail },
     { path: "/payment-address", element: PaymentAddress },
     { path: "/success-sign-Up", element: SuccessSignUp },
     { path: "/success-order", element: SuccessOrder },
@@ -29,6 +29,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/" element={<Splash />} />
         {route}
         <Route path="*" element={<NotFound />} />
       </Routes>
