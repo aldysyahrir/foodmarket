@@ -1,11 +1,15 @@
 
+import { useEffect } from "react";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import {
   BrowserRouter,
   Routes,
   Route,
 } from "react-router-dom";
+import { setAuthorizationHeaders } from "./configs/axios";
 import { useRouter } from "./hook";
 import { FoodDetail, Home, NotFound, Order, OrderInProgress, PaymentAddress, Profile, SignIn, SignUp, SignUpAddress, Splash, SuccessOrder, SuccessSignUp } from "./pages";
+import { isLoginSelector, tokenDataSelector, userDataAction, userDataSelector } from "./redux";
 
 function App() {
 
@@ -14,7 +18,7 @@ function App() {
     { type: "guess", path: "/sign-up", element: SignUp },
     { type: "guess", path: "/sign-up-address", element: SignUpAddress },
     { type: "guess", path: "/home", element: Home },
-    
+
     { path: "/order", element: Order },
     { path: "/profile", element: Profile },
     { path: "/food-detail/:id", element: FoodDetail },
@@ -24,7 +28,28 @@ function App() {
     { path: "/order-in-progress", element: OrderInProgress },
   ];
 
-  const route = useRouter(routes)
+  const dispatch = useDispatch();
+
+  const route = useRouter(routes);
+
+  const isLogin = useSelector(isLoginSelector, shallowEqual);
+  const token = useSelector(tokenDataSelector, shallowEqual);
+  const user = useSelector(userDataSelector, shallowEqual);
+
+  useEffect(() => {
+    //jika dia sudah login maka isi token ke dalam instance
+    if (isLogin) {
+      setAuthorizationHeaders(token)
+      if (user.email === "") {
+        user
+          .getUser()
+          .then((res) => {
+            dispatch(userDataAction(res.data));
+          })
+      }
+    }
+  }, [isLogin, user])
+
 
   return (
     <BrowserRouter>

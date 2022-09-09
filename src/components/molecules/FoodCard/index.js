@@ -3,10 +3,29 @@ import { useNavigate } from 'react-router-dom'
 import { ICStar, ILFood1 } from '../../../assets'
 import { Gap } from '../../atoms'
 
-const FoodCard = ({ data }) => {
+const FoodCard = ({ data, loading }) => {
   const { picture, title, star, id } = data
   const foodImage = `http://${picture}`
   const navigate = useNavigate();
+
+  if (loading) {
+    return (
+      <div className='w-48 min-w-max h-52 bg-white rounded-lg mx-3 flex flex-col flex-1 overflow-hidden'>
+        <div className='h-36 w-48 shimmer' />
+        <div className='m-3'>
+          <div className='w-36 h-3 shimmer' />
+          <Gap height={6} />
+          <div className='flex flex-row items-center'>
+            <div className='w-24 h-3 shimmer' />
+            <Gap width={4} />
+            <div className='w-3 h-3 shimmer' />
+
+          </div>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div
       onClick={() => navigate(`/food-detail/${id}`)}

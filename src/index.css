@@ -74,3 +74,18 @@ body {
 #children:nth-child(5){
   animation-delay: 1s;
 }
+
+.shimmer {
+  background: linear-gradient(-90deg, #f0f0f0 0%, #cacaca 50%, #f0f0f0 100%);
+  background-size: 400%;
+  animation: pulse 2s linear infinite;
+}
+
+@keyframes pulse {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: -140% 0%;
+  }
+}

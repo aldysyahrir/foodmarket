@@ -8,14 +8,9 @@ import { isLoginSelector, tokenDataSelector } from '../../redux';
 const Splash = () => {
   const navigate = useNavigate();
 
-  const isLogin = useSelector(isLoginSelector, shallowEqual);
-  const token = useSelector(tokenDataSelector, shallowEqual);
-
   useEffect(() => {
     const interval = 3000
     setTimeout(() => {
-      //jika dia sudah login maka isi token ke dalam instance
-      if (isLogin) setAuthorizationHeaders(token)
 
       // setelah interval code di jalankan
       navigate('/home')

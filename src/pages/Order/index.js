@@ -9,6 +9,15 @@ const Order = () => {
     { key: 0, tittle: 'In Progress' },
     { key: 1, tittle: 'Past Order' },
   ]);
+
+  const data = {
+    image: ILFood1,
+    tittle: 'Sanggara',
+    price: 'IDR 4.509.000',
+    star: 3,
+    items: "3 items"
+  }
+
   return (
     <div className='w-full flex flex-col'>
       <div className='flex-1'>
@@ -19,7 +28,11 @@ const Order = () => {
           setActiveitems={setActiveitems}
           items={items}>
           <ScrollContainer vertical className='list-container order'>
-            <Listitems image={ILFood1} tittle='Sanggara' price='IDR 4.509.000' star={3} page='order' items='3 items' />
+            <Listitems
+              data={data}
+              loading={false}
+              page='order'
+            />
 
           </ScrollContainer>
         </Tabitems>

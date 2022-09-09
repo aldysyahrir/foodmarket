@@ -7,3 +7,7 @@ export const image2base64 = (file) => {
         reader.onerror = (err) => reject(err);
     });
 };
+
+export const createParams = (params) => {
+    return `?${params.join("&")}`;
+};
