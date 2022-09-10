@@ -1,8 +1,20 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { isLoginAction } from "../../../redux";
+import { isLoginAction, refreshTokenDataAction, tokenDataAction, userDataAction } from "../../../redux";
 import Allert from "../Allert";
 import Loading from "../Loading";
+
+const emptyData = {
+  address: "",
+  avatar: "",
+  city: "",
+  email: "",
+  house_number: "",
+  id: "",
+  name: "",
+  phone: null,
+  rules: ""
+}
 
 const Guess = ({ children, path }) => {
   const dispatch = useDispatch();
@@ -11,6 +23,9 @@ const Guess = ({ children, path }) => {
   useEffect(() => {
     if (path !== "/home") {
       dispatch(isLoginAction(false));
+      dispatch(userDataAction(emptyData))
+      dispatch(tokenDataAction(""))
+      dispatch(refreshTokenDataAction(""))
     }
   }, [path])
 

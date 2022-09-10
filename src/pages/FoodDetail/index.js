@@ -1,8 +1,8 @@
 import { type } from '@testing-library/user-event/dist/type'
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { Link, useParams } from 'react-router-dom'
-import { ICStar, ILFood2 } from "../../assets"
+import { Link, useNavigate, useParams } from 'react-router-dom'
+import { ICArrowLeft, ICStar, ILFood2 } from "../../assets"
 import { Gap } from "../../components"
 import { foods } from '../../configs/constans'
 import { globalAllertAction } from '../../redux'
@@ -12,6 +12,7 @@ const FoodDetail = () => {
   const { id } = useParams()
   const dispatch = useDispatch()
   const [counter, setCounter] = useState(1)
+  const navigate = useNavigate()
 
   const [data, setData] = useState(null)
 
@@ -35,6 +36,9 @@ const FoodDetail = () => {
   return (
     <div className='relative'>
       <img src={foodImage} style={{ width: 480 }} />
+      <div onClick={() => navigate(-1)} className='absolute top-3 left-3 w-7 h-7 rounded-full bg-white flex justify-center items-center cursor-pointer'>
+        <ICArrowLeft />
+      </div>
       <div className='absolute top-80 bottom-0 w-full -mt-5 rounded-t-2xl bg-white z-10 flex flex-col flex-1'>
         <div className='flex flex-row items-center justify-between'>
           <div className='m-3'>
@@ -59,7 +63,7 @@ const FoodDetail = () => {
         </div>
         <div className='ml-4 flex flex-1 flex-col'>
           <p className='mb-2 mt-3 mr-5 text-sm font-normal text-gray-500'>
-                {data?.description}
+            {data?.description}
           </p>
           <p className='my-2 text-sm font-normal'>Ingredients</p>
           <p className='text-sm font-normal text-gray-500'>{data?.ingredients} </p>
@@ -68,9 +72,12 @@ const FoodDetail = () => {
         <div className='mx-4 mb-7 flex flex-row justify-between items-center'>
           <div>
             <p className='text-sm font-normal text-gray-500'>Total Price</p>
-            <p className='text-lg font-normal'>IDR { data?.price* counter}</p>
+            <p className='text-lg font-normal'>IDR {data?.price * counter}</p>
           </div>
-          <Link to="/payment-address" className='py-3 px-11 bg-yellow-500 rounded-lg'>Order Now</Link>
+          <Link to={`/payment-address/${id}/${counter}`}
+            className='py-3 px-11 bg-yellow-500 rounded-lg'>
+            Order Now
+          </Link>
         </div>
 
       </div>

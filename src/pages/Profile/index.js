@@ -34,10 +34,11 @@ const Profile = () => {
           <Gap height={12} />
           {activeItems === 0 ? (
             <>
-              <ListMenu tittle="Edit Profile" />
-              <ListMenu tittle="Home Address" />
-              <ListMenu tittle="Security" />
+              <ListMenu tittle="Edit Profile" destination="/edit-profile" />
+              <ListMenu tittle="Home Address" destination="/update-address" />
+              <ListMenu tittle="Security" destination="/update-password" />
               <ListMenu tittle="Payments" />
+              <ListMenu tittle="Log Out" destination="/sign-in" />
             </>
           ) : (
             <>
@@ -46,7 +47,7 @@ const Profile = () => {
               <ListMenu tittle="Privacy & Policy" />
               <ListMenu tittle="Terms & Condition" />
             </>
-            )}
+          )}
 
         </Tabitems>
       </div>

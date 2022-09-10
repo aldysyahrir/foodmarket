@@ -1,37 +1,73 @@
-import React, { useState } from 'react'
-import { useNavigate } from "react-router-dom" 
+import React, { useEffect, useState } from 'react'
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { useNavigate, useParams } from "react-router-dom"
 import { ILFood1 } from '../../assets';
 import { Button, Gap, Header, PaymentTab } from '../../components'
+import { foods } from '../../configs/constans';
+import { globalAllertAction, userDataSelector } from '../../redux';
+import { formatThousand } from '../../utils';
 
 const PaymentAddress = () => {
+    const { id, amount } = useParams();
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const userData = useSelector(userDataSelector, shallowEqual);
+
+    const [data, setData] = useState(null)
     const [transactionItems, setTransactionItems] = useState([
-        { tittle: "sanggara", value: "2.000.000" },
         { tittle: "Driver", value: "100.000" },
-        { tittle: "Tax 10%", value: "200.000" },
-        { tittle: "Total Price", value: "2.300.000", isGreen: true },
     ]);
 
     const [deliverToItems, setDeliverToItems] = useState([
-        { tittle: "Name", value: "Aldy" },
-        { tittle: "Phone No", value: "085398921385" },
-        { tittle: "Address", value: "Tomoni" },
-        { tittle: "House No", value: "24 B" },
-        { tittle: "City", value: "Lutim, Sul-sel" },
+        { tittle: "Name", value: userData.name },
+        { tittle: "Phone No", value: `0${userData.phone}` },
+        { tittle: "Address", value: userData.address },
+        { tittle: "House No", value: userData.house_number },
+        { tittle: "City", value: userData.city },
     ]);
+
+    useEffect(() => {
+        foods
+            .getFood(id)
+            .then((res) => {
+                setData(res.data);
+
+                const total = res.data.price * amount
+                const tax = res.data.price * amount * 0.1
+
+                const transactionItem = [
+                    { tittle: res.data.title, value: formatThousand(total) },
+                    { tittle: "Driver", value: "50.000" },
+                    { tittle: "Tax 10%", value: formatThousand(tax) },
+                    {
+                        tittle: "Total Price",
+                        value: formatThousand(total + tax + 50000),
+                        isGreen: true
+                    }
+                ]
+                setTransactionItems(transactionItem);
+            })
+            .catch((err) => {
+                const { message } = err.response?.data;
+                dispatch(globalAllertAction({ show: true, message }));
+                navigate(-1)
+            });
+    }, [])
+
 
     return (
         <div className='flex flex-col w-full bg-gray-100'>
-            <Header withArrowLeft tittle="Payment" desc="You deserve best meal" />
+            <Header withArrowLeft tittle="Payment" desc="You deserve best meal" onClick={() => navigate(-1)} />
             <Gap height={24} className="bg-gray-100" />
             <p className='text-xs font-normal pl-6 pb-2 pt-4 bg-white'>Item Ordered</p>
             <div className='flex flex-row py-2 px-6 items-center bg-white'>
                 <img src={ILFood1} width={60} height={60} />
                 <div className='flex-1 pl-3'>
-                    <p className='text-xs font-normal text-black'>Sanggara</p>
-                    <p className='text-xs font-normal text-gray-400'>IDR 2.000.000</p>
+                    <p className='text-xs font-normal text-black'>{data?.title}</p>
+                    <p className='text-xs font-normal text-gray-400'>{data?.price}</p>
                 </div>
-                <p className='text-xs font-normal text-gray-400'>14 items</p>
+                <p className='text-xs font-normal text-gray-400'>{amount} items</p>
             </div>
             <div className='flex-1'>
                 <PaymentTab tittle="Detail Transaction" items={transactionItems} />

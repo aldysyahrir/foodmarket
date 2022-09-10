@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { shallowEqual, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { isLoginSelector } from "../../../redux";
+import Allert from "../Allert";
 
 const Member = ({ children }) => {
 
@@ -12,7 +13,12 @@ const Member = ({ children }) => {
     if (!isLogin) navigate("/sign-in");
   }, [isLogin]);
 
-  return <div id="wrapper">{children}</div>;
+  return (
+    <div id="wrapper">
+      <Allert />
+      {children}
+    </div>
+  )
 
 }
 

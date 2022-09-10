@@ -6,7 +6,7 @@ const PaymentTab = ({ tittle, items }) => {
             <p className='text-xs font-normal py-2'>{tittle}</p>
             {items.length > 0 &&
                 items.map((item) => (
-                    <div className='flex flex-row justify-between my-1'>
+                    <div key={item.tittle} className='flex flex-row justify-between my-1'>
                         <p className='text-sm font-normal text-gray-400'>{item.tittle}</p>
                         <p className={`text-sm font-normal ${item.isGreen ? "text-green-300" : ""}`}>{item.value}</p>
                     </div>

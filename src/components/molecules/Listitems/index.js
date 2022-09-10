@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { ICStar } from '../../../assets';
 
 const Listitems = ({ data, page, loading }) => {
-  const { picture, title, price, star, items } = data
+  const { picture, title, price, star, items, id } = data
   const navigate = useNavigate();
   const foodImage = `http://${picture}`
 
@@ -25,7 +25,7 @@ const Listitems = ({ data, page, loading }) => {
 
   return (
     <div
-      onClick={() => navigate("/food-detail")}
+      onClick={() => navigate(`/food-detail/${id}`)}
       className='flex flex-row my-3 mx-6 items-center cursor-pointer'>
       <img src={foodImage} className="object-cover object-center h-16 w-16 rounded" />
       <div className='flex-1 ml-3'>
